@@ -8,5 +8,5 @@ Com essas informações, o produtor poderá comparar o investimento realizado na
 ALUNOS:
 GUSTAVO FAGUNDES
 EDY HENRIQUE
-LUAN DA CUNHA
+LUAN MARTINS
 MARCOS ARAUJO 
