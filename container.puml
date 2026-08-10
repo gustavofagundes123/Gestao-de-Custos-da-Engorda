@@ -1,0 +1,20 @@
+@startuml
+
+title Diagrama de Contêiner - Gestão de Custos da Engorda
+
+rectangle "Produtor Rural" as produtor
+
+rectangle "Sistema de Gestão de Custos da Engorda" {
+
+    rectangle "Interface Web\nHTML / CSS" as frontend
+
+    rectangle "Servidor Backend\nPython / Flask" as backend
+
+    database "Banco de Dados" as banco
+}
+
+produtor --> frontend : Acessa o sistema
+frontend --> backend : Envia e recebe dados
+backend --> banco : Consulta e armazena dados
+
+@enduml
