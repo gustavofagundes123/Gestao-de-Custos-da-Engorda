@@ -1,0 +1,32 @@
+@startuml
+
+entity PRODUTOR {
+  id_produtor
+  nome
+  propriedade
+}
+
+entity ANIMAL {
+  id_animal
+  identificacao
+  peso_kg
+  data_entrada
+}
+
+entity PESAGEM {
+  id_pesagem
+  peso_kg
+  data
+}
+
+entity INSUMO {
+  id_insumo
+  nome
+  quantidade
+  custo
+}
+
+PRODUTOR ||--o{ ANIMAL : possui
+ANIMAL ||--o{ PESAGEM : recebe
+
+@enduml

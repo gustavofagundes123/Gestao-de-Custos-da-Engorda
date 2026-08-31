@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 Olá, GitHub!
+=======
+Meu  primeiro teste usando Git.
+>>>>>>> 60efe8e6d8cbe1b8bdb641e860d7cd5a8a39f79e
