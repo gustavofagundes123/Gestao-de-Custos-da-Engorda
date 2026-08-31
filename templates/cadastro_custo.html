@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro de Custo</title>
+</head>
+
+<body>
+
+    <h1>Cadastro de Custo de Alimentação</h1>
+
+    <form action="/cadastrar" method="POST">
+
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required>
+
+        <br><br>
+
+        <label for="tipo_alimentacao">
+            Tipo de alimentação:
+        </label>
+
+        <select id="tipo_alimentacao" name="tipo_alimentacao" required>
+
+            <option value="">Selecione</option>
+
+            <option value="Pastagem">Pastagem</option>
+
+            <option value="Ração">Ração</option>
+
+            <option value="Suplementação">Suplementação</option>
+
+        </select>
+
+        <br><br>
+
+        <label for="valor">Valor do custo:</label>
+
+        <input
+            type="number"
+            id="valor"
+            name="valor"
+            step="0.01"
+            min="0"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">Cadastrar</button>
+
+    </form>
+
+</body>
+
+</html>
