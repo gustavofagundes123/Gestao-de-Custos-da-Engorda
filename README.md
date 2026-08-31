@@ -32,22 +32,4 @@ O projeto foi desenvolvido como parte das atividades do curso Técnico em Inform
 - **SQLite**
 - **Git e GitHub**
 
-## 📂 Estrutura do projeto
-
-text
-Gestao-de-Custos-da-Engorda/
-│
-├── app.py
-├── banco.db
-├── requeriments.txt
-├── README.md
-│
-├── static/
-│   └── style.css
-│
-└── templates/
-    ├── base.html
-    ├── index.html
-    ├── cadastrar.html
-    └── editar.html
 
