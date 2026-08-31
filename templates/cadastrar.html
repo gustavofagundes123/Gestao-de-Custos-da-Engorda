@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastrar Insumo{% endblock %}
+
+{% block content %}
+
+<div class="formulario">
+
+
+    <h2>Cadastrar Insumo</h2>
+
+    <form method="POST">
+
+        <label for="nome">Nome do insumo *</label>
+
+        <input type="text" id="nome" name="nome" placeholder="Ex.: Ração" required>
+
+        <label for="quantidade">Quantidade *</label>
+
+        <input type="number" id="quantidade" name="quantidade" step="0.01" min="0.01" placeholder="Ex.: 50" required>
+
+        <label for="unidade">Unidade de medida *</label>
+
+        <select id="unidade" name="unidade" required>
+
+            <option value="">Selecione uma unidade</option>
+            <option value="kg">Quilograma (kg)</option>
+            <option value="g">Grama (g)</option>
+            <option value="L">Litro (L)</option>
+            <option value="mL">Mililitro (mL)</option>
+            <option value="un">Unidade (un)</option>
+
+        </select>
+
+        <div class="botoes">
+
+            <button type="submit" class="botao">
+                Cadastrar
+            </button>
+
+            <a href="{{ url_for('index') }}" class="cancelar">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+
+</div>
+
+{% endblock %}

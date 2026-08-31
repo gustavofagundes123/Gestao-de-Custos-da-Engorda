@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Insumo{% endblock %}
+
+{% block content %}
+
+<div class="formulario">
+
+
+<h2>Editar Insumo</h2>
+
+<form method="POST">
+
+    <label for="nome">Nome do insumo *</label>
+
+    <input
+        type="text"
+        id="nome"
+        name="nome"
+        value="{{ insumo.nome }}"
+        required
+    >
+
+    <label for="quantidade">Quantidade *</label>
+
+    <input
+        type="number"
+        id="quantidade"
+        name="quantidade"
+        value="{{ insumo.quantidade }}"
+        step="0.01"
+        min="0.01"
+        required
+    >
+
+    <label for="unidade">Unidade de medida *</label>
+
+    <select id="unidade" name="unidade" required>
+
+        <option value="">Selecione uma unidade</option>
+
+        <option value="kg" {% if insumo.unidade == "kg" %}selected{% endif %}>
+            Quilograma (kg)
+        </option>
+
+        <option value="g" {% if insumo.unidade == "g" %}selected{% endif %}>
+            Grama (g)
+        </option>
+
+        <option value="L" {% if insumo.unidade == "L" %}selected{% endif %}>
+            Litro (L)
+        </option>
+
+        <option value="mL" {% if insumo.unidade == "mL" %}selected{% endif %}>
+            Mililitro (mL)
+        </option>
+
+        <option value="un" {% if insumo.unidade == "un" %}selected{% endif %}>
+            Unidade (un)
+        </option>
+
+    </select>
+
+    <div class="botoes">
+
+        <button type="submit" class="botao">
+            Salvar alterações
+        </button>
+
+        <a href="{{ url_for('index') }}" class="cancelar">
+            Cancelar
+        </a>
+
+    </div>
+
+</form>
+
+
+</div>
+
+{% endblock %}
