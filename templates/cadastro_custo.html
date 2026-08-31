@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Cadastro de Custo</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 
 <body>
@@ -16,8 +19,6 @@
 
         <label for="data">Data:</label>
         <input type="date" id="data" name="data" required>
-
-        <br><br>
 
         <label for="tipo_alimentacao">
             Tipo de alimentação:
@@ -47,8 +48,6 @@
             min="0"
             required
         >
-
-        <br><br>
 
         <button type="submit">Cadastrar</button>
 
