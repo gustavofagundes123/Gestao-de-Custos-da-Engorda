@@ -1,21 +1,15 @@
 @startuml
-
 start
-
 :Informar os dados da engorda;
 :Informar quantidade de animais;
 :Informar peso dos animais;
 :Informar custos dos insumos;
-
 :Calcular custo total;
-
 if (Dados estão corretos?) then (Sim)
     :Exibir resultado dos custos;
 else (Não)
     :Informar erro nos dados;
     :Corrigir informações;
 endif
-
 stop
-
 @enduml
