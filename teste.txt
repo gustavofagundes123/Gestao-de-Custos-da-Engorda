@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 Meu  primeiro teste usando Git.
-=======
-Olá, GitHub!
->>>>>>> ff265ec (Adiciona arquivo teste)
