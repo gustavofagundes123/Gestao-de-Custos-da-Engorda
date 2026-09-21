@@ -7,18 +7,14 @@
 <div class="topo">
     <h2>Cadastro de Insumos</h2>
 
-
     <a href="{{ url_for('cadastrar') }}" class="botao">
         + Cadastrar Insumo
     </a>
-
-
 </div>
 
 {% if insumos %}
 
 <table>
-
 
     <thead>
         <tr>
@@ -46,10 +42,13 @@
                     Editar
                 </a>
 
-                <form action="{{ url_for('excluir', id=insumo.id) }}" method="POST" style="display:inline;">
+                <form action="{{ url_for('excluir', id=insumo.id) }}"
+                      method="POST"
+                      style="display:inline;">
 
-                    <button type="submit" class="excluir"
-                        onclick="return confirm('Deseja realmente excluir este insumo?')">
+                    <button type="submit"
+                            class="excluir"
+                            onclick="return confirm('Deseja realmente excluir este insumo?')">
                         Excluir
                     </button>
 
@@ -62,22 +61,96 @@
 
     </tbody>
 
-
 </table>
 
 {% else %}
 
 <div class="vazio">
-    <p>Nenhum insumo cadastrado.</p>
 
+    <p>Nenhum insumo cadastrado.</p>
 
     <a href="{{ url_for('cadastrar') }}" class="botao">
         Cadastrar primeiro insumo
     </a>
 
-
 </div>
 
 {% endif %}
+
+
+<!-- CÁLCULO DE CUSTO -->
+
+<div class="calculo">
+
+    <h2>Cálculo de Custo por Kg</h2>
+
+    <p>
+        Informe os dados da engorda para calcular o custo por quilograma produzido.
+    </p>
+
+    <form action="{{ url_for('calcular') }}" method="POST">
+
+        <label for="custo_total">Custo total (R$)</label>
+
+        <input
+            type="number"
+            id="custo_total"
+            name="custo_total"
+            step="0.01"
+            min="0.01"
+            placeholder="Ex.: 1500.00"
+            value="{{ custo_total if custo_total is defined else '' }}"
+            required
+        >
+
+        <label for="peso_inicial">Peso inicial (kg)</label>
+
+        <input
+            type="number"
+            id="peso_inicial"
+            name="peso_inicial"
+            step="0.01"
+            min="0.01"
+            placeholder="Ex.: 300"
+            value="{{ peso_inicial if peso_inicial is defined else '' }}"
+            required
+        >
+
+        <label for="peso_final">Peso final (kg)</label>
+
+        <input
+            type="number"
+            id="peso_final"
+            name="peso_final"
+            step="0.01"
+            min="0.01"
+            placeholder="Ex.: 450"
+            value="{{ peso_final if peso_final is defined else '' }}"
+            required
+        >
+
+        <button type="submit" class="botao">
+            Calcular custo por kg
+        </button>
+
+    </form>
+
+
+    {% if custo_por_kg is defined %}
+
+    <div class="resultado">
+
+        <h3>Resultado</h3>
+
+        <p>
+            Custo por kg produzido:
+            <strong>R$ {{ "%.2f"|format(custo_por_kg) }}</strong>
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
 
 {% endblock %}

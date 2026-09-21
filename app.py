@@ -1,10 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
+import os
+import sys
+
+# Permite importar arquivos da pasta src
+sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+
+from custo_engorda import calcular_custo_por_kg
+
 
 app = Flask(__name__)
 app.secret_key = "chave-secreta"
 
-DATABASE = "banco.db"
+
+# Caminho absoluto do banco de dados
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "banco.db")
 
 
 def conectar_banco():
@@ -44,6 +55,7 @@ def index():
 
 @app.route("/cadastrar", methods=["GET", "POST"])
 def cadastrar():
+
     if request.method == "POST":
 
         nome = request.form.get("nome", "").strip()
@@ -84,6 +96,7 @@ def cadastrar():
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 def editar(id):
+
     conexao = conectar_banco()
 
     insumo = conexao.execute(
@@ -140,6 +153,7 @@ def editar(id):
 
 @app.route("/excluir/<int:id>", methods=["POST"])
 def excluir(id):
+
     conexao = conectar_banco()
 
     conexao.execute(
@@ -155,6 +169,65 @@ def excluir(id):
     return redirect(url_for("index"))
 
 
+@app.route("/calcular", methods=["POST"])
+def calcular():
+
+    custo_total = request.form.get("custo_total", "").strip()
+    peso_inicial = request.form.get("peso_inicial", "").strip()
+    peso_final = request.form.get("peso_final", "").strip()
+
+    try:
+        custo_total = float(custo_total)
+        peso_inicial = float(peso_inicial)
+        peso_final = float(peso_final)
+
+        if custo_total <= 0:
+            flash("O custo total deve ser maior que zero.", "erro")
+            return redirect(url_for("index"))
+
+        if peso_inicial <= 0 or peso_final <= 0:
+            flash("Os pesos devem ser maiores que zero.", "erro")
+            return redirect(url_for("index"))
+
+        if peso_final <= peso_inicial:
+            flash("O peso final deve ser maior que o peso inicial.", "erro")
+            return redirect(url_for("index"))
+
+        custo_por_kg = calcular_custo_por_kg(
+            custo_total,
+            peso_inicial,
+            peso_final
+        )
+
+        return render_template(
+            "index.html",
+            insumos=buscar_insumos(),
+            custo_por_kg=custo_por_kg,
+            custo_total=custo_total,
+            peso_inicial=peso_inicial,
+            peso_final=peso_final
+        )
+
+    except ValueError:
+        flash("Digite valores numéricos válidos.", "erro")
+        return redirect(url_for("index"))
+
+
+def buscar_insumos():
+    conexao = conectar_banco()
+
+    insumos = conexao.execute(
+        "SELECT * FROM insumos ORDER BY id DESC"
+    ).fetchall()
+
+    conexao.close()
+
+    return insumos
+
+
+# Cria a tabela caso ela ainda não exista
+criar_tabela()
+
+
 if __name__ == "__main__":
-    criar_tabela()
     app.run(debug=True)
