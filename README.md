@@ -20,7 +20,7 @@ Ganho de peso = Peso final − Peso inicial
 - Peso final: 450 kg
 - Ganho de peso: 150 kg
 - Custo por kg: R$ 10,00
-=======
+
 ### Descrição do Tema 3 – Custo de Produção da Engorda
 
 O sistema tem como objetivo auxiliar o pecuarista no controle dos custos durante as etapas de recria e terminação do gado. O aplicativo permitirá registrar os gastos diários com pastagem e alimentação, acompanhar o ganho de peso médio diário (GMD) dos animais e calcular o custo necessário para produzir cada quilo de carne.
