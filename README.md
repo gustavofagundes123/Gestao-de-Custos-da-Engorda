@@ -257,7 +257,7 @@ Projeto desenvolvido por alunos do:
 
 ### Orientadora
 
-**Eudoxia Lottia Silva Moura**
+**Eudoxia Lottie Silva Moura**
 
 ---
 
