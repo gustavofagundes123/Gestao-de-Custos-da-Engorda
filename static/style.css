@@ -483,3 +483,27 @@ td {
 .botao-sair:hover {
     background: #a51f1f;
 }
+
+/* ================================
+   CADASTRO DE USUÁRIO
+================================ */
+
+.cadastro-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cadastro-link p {
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.cadastro-link a {
+    color: #176b3a;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.cadastro-link a:hover {
+    text-decoration: underline;
+}

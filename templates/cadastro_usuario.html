@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Login - Gestão de Custos{% endblock %}
+{% block title %}Criar Conta - Gestão de Custos{% endblock %}
 
 {% block content %}
 
@@ -13,19 +13,36 @@
         </div>
 
         <h2>
-            Acessar sistema
+            Criar conta
         </h2>
 
         <p class="login-descricao">
-            Entre com suas credenciais para acessar
+            Cadastre seus dados para acessar
             a Gestão de Custos da Engorda.
         </p>
 
 
         <form
             method="POST"
-            action="{{ url_for('login') }}"
+            action="{{ url_for('cadastro') }}"
         >
+
+            <div class="campo">
+
+                <label for="nome">
+                    Nome
+                </label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    placeholder="Digite seu nome"
+                    required
+                >
+
+            </div>
+
 
             <div class="campo">
 
@@ -56,7 +73,27 @@
                     id="senha"
                     name="senha"
                     placeholder="Digite sua senha"
-                    autocomplete="current-password"
+                    minlength="6"
+                    autocomplete="new-password"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="confirmar_senha">
+                    Confirmar senha
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmar_senha"
+                    name="confirmar_senha"
+                    placeholder="Digite a senha novamente"
+                    minlength="6"
+                    autocomplete="new-password"
                     required
                 >
 
@@ -67,7 +104,7 @@
                 type="submit"
                 class="botao login-botao"
             >
-                Entrar
+                Criar conta
             </button>
 
         </form>
@@ -76,11 +113,11 @@
         <div class="cadastro-link">
 
             <p>
-                Ainda não possui uma conta?
+                Já possui uma conta?
             </p>
 
-            <a href="{{ url_for('cadastro') }}">
-                Criar uma conta
+            <a href="{{ url_for('login') }}">
+                Voltar para o login
             </a>
 
         </div>
