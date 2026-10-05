@@ -3,50 +3,102 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>{% block title %}Gestão de Custos{% endblock %}</title>
+    <title>
+        {% block title %}Gestão de Custos{% endblock %}
+    </title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 
 </head>
 
 <body>
 
-
 <header class="cabecalho">
+
     <div class="cabecalho-conteudo">
+
         <div>
-            <h1>🐂 Gestão de Custos da Engorda</h1>
-            <p>Controle e acompanhamento dos custos da sua engorda</p>
+
+            <h1>
+                🐂 Gestão de Custos da Engorda
+            </h1>
+
+            <p>
+                Controle e acompanhamento dos custos da sua engorda
+            </p>
+
         </div>
+
+
+        {% if session.get("usuario_id") %}
+
+        <div class="usuario-logado">
+
+            <span>
+                👤 {{ session.get("usuario_nome") }}
+            </span>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="botao-sair"
+            >
+                Sair
+            </a>
+
+        </div>
+
+        {% endif %}
+
     </div>
+
 </header>
+
 
 <main class="container">
 
     {% with mensagens = get_flashed_messages(with_categories=true) %}
-    {% if mensagens %}
-        {% for categoria, mensagem in mensagens %}
-            <div class="mensagem {{ categoria }}">
-                {{ mensagem }}
-            </div>
-        {% endfor %}
-    {% endif %}
+
+        {% if mensagens %}
+
+            {% for categoria, mensagem in mensagens %}
+
+                <div class="mensagem {{ categoria }}">
+                    {{ mensagem }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
     {% endwith %}
+
 
     {% block content %}
     {% endblock %}
 
 </main>
 
+
 <footer>
-    <p>Gestão de Custos da Engorda</p>
+
+    <p>
+        Gestão de Custos da Engorda
+    </p>
+
 </footer>
 
 
 </body>
+
 </html>

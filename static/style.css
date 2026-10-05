@@ -351,3 +351,135 @@ td {
 
 
 }
+
+/* ================================
+   LOGIN
+================================ */
+
+.login-container {
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
+    text-align: center;
+}
+
+
+.login-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+
+.login-card h2 {
+    margin-bottom: 10px;
+    color: #176b3a;
+}
+
+
+.login-descricao {
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+
+.login-card form {
+    text-align: left;
+}
+
+
+.login-card .campo {
+    margin-bottom: 18px;
+}
+
+
+.login-card label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+
+.login-card input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+
+.login-card input:focus {
+    outline: none;
+    border-color: #176b3a;
+}
+
+
+.login-botao {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.login-info {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+
+.login-info p {
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* ================================
+   USUÁRIO LOGADO
+================================ */
+
+.cabecalho-conteudo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.usuario-logado {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+
+.botao-sair {
+    background: #c62828;
+    color: white;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+
+.botao-sair:hover {
+    background: #a51f1f;
+}

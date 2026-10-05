@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Gestão de Custos{% endblock %}
+
+{% block content %}
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="login-icon">
+            🐂
+        </div>
+
+        <h2>
+            Acessar sistema
+        </h2>
+
+        <p class="login-descricao">
+            Entre com suas credenciais para acessar
+            a Gestão de Custos da Engorda.
+        </p>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('login') }}"
+        >
+
+            <div class="campo">
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Digite seu e-mail"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="Digite sua senha"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="botao login-botao"
+            >
+                Entrar
+            </button>
+
+        </form>
+
+
+        <div class="login-info">
+
+            <p>
+                Sistema de Gestão de Custos da Engorda
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
