@@ -6,113 +6,158 @@
 
 <div class="formulario">
 
+    <h2>Editar Insumo</h2>
 
-<h2>Editar Insumo</h2>
+    <form method="POST">
 
-<form method="POST">
+        <label for="nome">
+            Nome do insumo *
+        </label>
 
-    <label for="nome">
-        Nome do insumo *
-    </label>
-
-    <input
-        type="text"
-        id="nome"
-        name="nome"
-        value="{{ insumo.nome }}"
-        required
-    >
-
-
-    <label for="quantidade">
-        Quantidade *
-    </label>
-
-    <input
-        type="number"
-        id="quantidade"
-        name="quantidade"
-        step="0.01"
-        min="0.01"
-        value="{{ insumo.quantidade }}"
-        required
-    >
+        <input
+            type="text"
+            id="nome"
+            name="nome"
+            value="{{ insumo.nome }}"
+            required
+        >
 
 
-    <label for="unidade">
-        Unidade de medida *
-    </label>
+        <label for="quantidade">
+            Quantidade *
+        </label>
 
-    <select
-        id="unidade"
-        name="unidade"
-        required>
-
-        <option
-            value="kg"
-            {% if insumo.unidade == "kg" %}selected{% endif %}>
-            Quilograma (kg)
-        </option>
-
-        <option
-            value="g"
-            {% if insumo.unidade == "g" %}selected{% endif %}>
-            Grama (g)
-        </option>
-
-        <option
-            value="L"
-            {% if insumo.unidade == "L" %}selected{% endif %}>
-            Litro (L)
-        </option>
-
-        <option
-            value="mL"
-            {% if insumo.unidade == "mL" %}selected{% endif %}>
-            Mililitro (mL)
-        </option>
-
-        <option
-            value="un"
-            {% if insumo.unidade == "un" %}selected{% endif %}>
-            Unidade (un)
-        </option>
-
-    </select>
+        <input
+            type="number"
+            id="quantidade"
+            name="quantidade"
+            step="0.01"
+            min="0.01"
+            value="{{ insumo.quantidade }}"
+            required
+        >
 
 
-    <label for="custo_unitario">
-        Custo por unidade (R$) *
-    </label>
+        <label for="unidade">
+            Unidade de medida *
+        </label>
 
-    <input
-        type="number"
-        id="custo_unitario"
-        name="custo_unitario"
-        step="0.01"
-        min="0"
-        value="{{ insumo.custo_unitario }}"
-        required
-    >
+        <select
+            id="unidade"
+            name="unidade"
+            required>
+
+            <option
+                value="kg"
+                {% if insumo.unidade == "kg" %}selected{% endif %}>
+                Quilograma (kg)
+            </option>
+
+            <option
+                value="g"
+                {% if insumo.unidade == "g" %}selected{% endif %}>
+                Grama (g)
+            </option>
+
+            <option
+                value="L"
+                {% if insumo.unidade == "L" %}selected{% endif %}>
+                Litro (L)
+            </option>
+
+            <option
+                value="mL"
+                {% if insumo.unidade == "mL" %}selected{% endif %}>
+                Mililitro (mL)
+            </option>
+
+            <option
+                value="un"
+                {% if insumo.unidade == "un" %}selected{% endif %}>
+                Unidade (un)
+            </option>
+
+        </select>
 
 
-    <div class="botoes">
+        <label for="custo_unitario" id="label_custo">
+            Custo por unidade (R$) *
+        </label>
 
-        <button type="submit" class="botao">
-            Salvar alterações
-        </button>
+        <input
+            type="number"
+            id="custo_unitario"
+            name="custo_unitario"
+            step="0.01"
+            min="0"
+            value="{{ insumo.custo_unitario }}"
+            required
+        >
 
-        <a
-            href="{{ url_for('index') }}"
-            class="cancelar">
-            Cancelar
-        </a>
 
-    </div>
+        <div class="botoes">
 
-</form>
+            <button type="submit" class="botao">
+                Salvar alterações
+            </button>
 
+            <a
+                href="{{ url_for('index') }}"
+                class="cancelar">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
 
 </div>
+
+
+<script>
+    const unidade = document.getElementById("unidade");
+    const labelCusto = document.getElementById("label_custo");
+    const custoInput = document.getElementById("custo_unitario");
+
+    function atualizarCusto() {
+
+        const valor = unidade.value;
+
+        if (valor === "kg") {
+            labelCusto.textContent = "Custo por kg (R$) *";
+            custoInput.placeholder = "Ex.: 5.50";
+        }
+
+        else if (valor === "g") {
+            labelCusto.textContent = "Custo por grama (R$) *";
+            custoInput.placeholder = "Ex.: 0.05";
+        }
+
+        else if (valor === "L") {
+            labelCusto.textContent = "Custo por litro (R$) *";
+            custoInput.placeholder = "Ex.: 6.50";
+        }
+
+        else if (valor === "mL") {
+            labelCusto.textContent = "Custo por mililitro (R$) *";
+            custoInput.placeholder = "Ex.: 0.01";
+        }
+
+        else if (valor === "un") {
+            labelCusto.textContent = "Custo por unidade (R$) *";
+            custoInput.placeholder = "Ex.: 5.50";
+        }
+
+        else {
+            labelCusto.textContent = "Custo por unidade (R$) *";
+            custoInput.placeholder = "Ex.: 5.50";
+        }
+    }
+
+    unidade.addEventListener("change", atualizarCusto);
+
+    // Atualiza o texto automaticamente ao abrir a página
+    atualizarCusto();
+</script>
 
 {% endblock %}
