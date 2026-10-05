@@ -11,7 +11,9 @@
 
 <form method="POST">
 
-    <label for="nome">Nome do insumo *</label>
+    <label for="nome">
+        Nome do insumo *
+    </label>
 
     <input
         type="text"
@@ -21,45 +23,78 @@
         required
     >
 
-    <label for="quantidade">Quantidade *</label>
+
+    <label for="quantidade">
+        Quantidade *
+    </label>
 
     <input
         type="number"
         id="quantidade"
         name="quantidade"
-        value="{{ insumo.quantidade }}"
         step="0.01"
         min="0.01"
+        value="{{ insumo.quantidade }}"
         required
     >
 
-    <label for="unidade">Unidade de medida *</label>
 
-    <select id="unidade" name="unidade" required>
+    <label for="unidade">
+        Unidade de medida *
+    </label>
 
-        <option value="">Selecione uma unidade</option>
+    <select
+        id="unidade"
+        name="unidade"
+        required>
 
-        <option value="kg" {% if insumo.unidade == "kg" %}selected{% endif %}>
+        <option
+            value="kg"
+            {% if insumo.unidade == "kg" %}selected{% endif %}>
             Quilograma (kg)
         </option>
 
-        <option value="g" {% if insumo.unidade == "g" %}selected{% endif %}>
+        <option
+            value="g"
+            {% if insumo.unidade == "g" %}selected{% endif %}>
             Grama (g)
         </option>
 
-        <option value="L" {% if insumo.unidade == "L" %}selected{% endif %}>
+        <option
+            value="L"
+            {% if insumo.unidade == "L" %}selected{% endif %}>
             Litro (L)
         </option>
 
-        <option value="mL" {% if insumo.unidade == "mL" %}selected{% endif %}>
+        <option
+            value="mL"
+            {% if insumo.unidade == "mL" %}selected{% endif %}>
             Mililitro (mL)
         </option>
 
-        <option value="un" {% if insumo.unidade == "un" %}selected{% endif %}>
+        <option
+            value="un"
+            {% if insumo.unidade == "un" %}selected{% endif %}>
             Unidade (un)
         </option>
 
     </select>
+
+
+    <label for="custo_unitario">
+        Custo por unidade (R$) *
+    </label>
+
+    <input
+        type="number"
+        id="custo_unitario"
+        name="custo_unitario"
+        step="0.01"
+        min="0"
+        value="{{ insumo.custo_unitario }}"
+        required
+    >
+
 
     <div class="botoes">
 
@@ -67,7 +102,9 @@
             Salvar alterações
         </button>
 
-        <a href="{{ url_for('index') }}" class="cancelar">
+        <a
+            href="{{ url_for('index') }}"
+            class="cancelar">
             Cancelar
         </a>
 
