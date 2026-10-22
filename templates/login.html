@@ -1,80 +1,77 @@
+
 {% extends "base.html" %}
 
-{% block title %}Login - Gestão de Custos{% endblock %}
+{% block title %}Entrar | Gestão de Custos da Engorda{% endblock %}
 
 {% block content %}
 
 <div class="login-container">
-
     <div class="login-card">
 
-        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Gestão de Custos da Engorda" class="logo">
+        <div class="login-marca">
+            <div class="login-icone">🐂</div>
+            <span>GESTÃO AGROPECUÁRIA</span>
+        </div>
 
-        <h2>
-            Acessar sistema
-        </h2>
+        <img
+            src="{{ url_for('static', filename='img/logo.png') }}"
+            alt="Logo Gestão de Custos da Engorda"
+            class="logo"
+            onerror="this.style.display='none'"
+        >
+
+        <h2>Bem-vindo de volta!</h2>
 
         <p class="login-descricao">
-            Entre com suas credenciais para acessar
-            a Gestão de Custos da Engorda.
+            Entre na sua conta e acompanhe os custos da sua engorda
+            com mais controle e praticidade.
         </p>
 
         <form method="POST" action="{{ url_for('login') }}">
 
             <div class="campo">
-
-                <label for="email">
-                    E-mail
-                </label>
-
-                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" autocomplete="email"
-                    required>
-
+                <label for="email">E-mail</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="voce@exemplo.com"
+                    autocomplete="email"
+                    required
+                >
             </div>
-
 
             <div class="campo">
-
-                <label for="senha">
-                    Senha
-                </label>
-
-                <input type="password" id="senha" name="senha" placeholder="Digite sua senha"
-                    autocomplete="current-password" required>
-
+                <label for="senha">Senha</label>
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="Digite sua senha"
+                    autocomplete="current-password"
+                    required
+                >
             </div>
 
-
             <button type="submit" class="botao login-botao">
-                Entrar
+                Entrar na minha conta →
             </button>
 
         </form>
 
-
         <div class="cadastro-link">
-
-            <p>
-                Ainda não possui uma conta?
-            </p>
-
+            <p>Ainda não tem uma conta?</p>
             <a href="{{ url_for('cadastro_usuario') }}">
-                Criar uma conta
+                Criar minha conta gratuitamente
             </a>
-
         </div>
 
-
         <div class="login-info">
-
-            <p>
-                Sistema de Gestão de Custos da Engorda
-            </p>
-
+            <span>🌱</span>
+            <p>Mais controle para decisões melhores no campo.</p>
         </div>
 
     </div>
-
 </div>
 
 {% endblock %}

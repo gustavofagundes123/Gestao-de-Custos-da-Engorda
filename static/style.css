@@ -1,29 +1,456 @@
 
-/* Ajustes para a tabela de insumos */
+/* =========================================
+   GESTÃO DE CUSTOS DA ENGORDA
+   Identidade visual: Agro moderno
+   ========================================= */
+
+:root {
+    --verde-900: #12372a;
+    --verde-800: #174734;
+    --verde-700: #216344;
+    --verde-600: #2f8054;
+    --verde-100: #e8f3eb;
+    --dourado: #d7ad54;
+    --fundo: #f4f7f3;
+    --branco: #ffffff;
+    --texto: #24332b;
+    --texto-suave: #718077;
+    --borda: #e1e9e1;
+    --vermelho: #b93838;
+    --sombra: 0 8px 28px rgba(18, 55, 42, 0.07);
+    --raio: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(ellipse at top right, #e6f0e5 0, transparent 36%),
+        var(--fundo);
+    color: var(--texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* CABEÇALHO */
+
+.cabecalho {
+    color: var(--branco);
+    background: linear-gradient(125deg, var(--verde-900), var(--verde-700));
+    border-bottom: 4px solid var(--dourado);
+    box-shadow: 0 5px 22px rgba(18, 55, 42, 0.14);
+}
+
+.cabecalho-conteudo {
+    width: min(1180px, 92%);
+    margin: 0 auto;
+    padding: 25px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+.cabecalho h1 {
+    margin: 0;
+    color: var(--branco);
+    font-size: clamp(21px, 3vw, 30px);
+    line-height: 1.25;
+    font-weight: 750;
+    letter-spacing: -0.7px;
+}
+
+.cabecalho p {
+    margin: 8px 0 0;
+    color: #d7e7dc;
+    font-size: 14px;
+}
+
+.usuario-logado {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    flex-wrap: wrap;
+    color: #f2f7f2;
+}
+
+.usuario-logado span {
+    font-weight: 600;
+}
+
+/* ÁREA PRINCIPAL */
+
+.container {
+    width: min(1180px, 92%);
+    margin: 34px auto;
+    flex: 1;
+}
+
+h1, h2, h3, h4 {
+    color: var(--verde-900);
+    line-height: 1.3;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: clamp(21px, 2.5vw, 27px);
+    letter-spacing: -0.4px;
+}
+
+h3 {
+    font-size: 19px;
+}
+
+p {
+    overflow-wrap: anywhere;
+}
+
+a {
+    color: var(--verde-700);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--verde-900);
+}
+
+/* PAINÉIS, FORMULÁRIOS E CARDS */
+
+.formulario,
+.calculo,
+.card,
+.cartao,
+.painel,
+.login-box,
+.cadastro-box,
+.secao {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: 25px;
+    margin-bottom: 24px;
+    box-shadow: var(--sombra);
+}
+
+.formulario h2,
+.calculo h2,
+.painel h2 {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin: 0 0 7px;
+    color: var(--verde-900);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    min-height: 45px;
+    padding: 11px 13px;
+    margin: 0 0 17px;
+    border: 1px solid #d6e0d7;
+    border-radius: 10px;
+    background: #fcfdfb;
+    color: var(--texto);
+    font: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--verde-600);
+    box-shadow: 0 0 0 3px rgba(47, 128, 84, 0.13);
+    background: var(--branco);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+    min-height: auto;
+    margin-right: 8px;
+}
+
+/* BOTÕES */
+
+button,
+input[type="submit"],
+.botao,
+.botao-sair {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 43px;
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--verde-700);
+    color: var(--branco);
+    font: inherit;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.18s, background 0.18s, box-shadow 0.18s;
+}
+
+button:hover,
+input[type="submit"]:hover,
+.botao:hover {
+    background: var(--verde-900);
+    color: var(--branco);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 13px rgba(18, 55, 42, 0.15);
+}
+
+.botao-sair {
+    min-height: 38px;
+    padding: 8px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--branco);
+}
+
+.botao-sair:hover {
+    background: var(--branco);
+    color: var(--verde-900);
+}
+
+button:disabled,
+input[type="submit"]:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* TABELAS */
+
 table {
-    margin-bottom: 25px;
+    width: 100%;
+    margin: 0 0 25px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 13px;
+    box-shadow: var(--sombra);
+}
+
+thead th {
+    padding: 15px 16px;
+    background: var(--verde-900);
+    color: var(--branco);
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf1ed;
+    vertical-align: middle;
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8faf7;
+}
+
+tbody tr:hover {
+    background: var(--verde-100);
 }
 
 td small {
     display: inline-block;
-    margin-top: 5px;
-    color: #555;
+    margin-top: 4px;
+    color: var(--texto-suave);
+    font-size: 12px;
 }
+
+/* MENSAGENS DO FLASK */
+
+.mensagem {
+    margin-bottom: 20px;
+    padding: 14px 17px;
+    border: 1px solid var(--borda);
+    border-left: 5px solid var(--verde-600);
+    border-radius: 10px;
+    background: var(--branco);
+    box-shadow: 0 3px 12px rgba(18, 55, 42, 0.04);
+}
+
+.mensagem.sucesso,
+.mensagem.success {
+    border-left-color: #27844e;
+    background: #eff9f1;
+    color: #205d35;
+}
+
+.mensagem.erro,
+.mensagem.error,
+.mensagem.danger {
+    border-left-color: var(--vermelho);
+    background: #fff1f0;
+    color: #8d2929;
+}
+
+.mensagem.aviso,
+.mensagem.warning {
+    border-left-color: var(--dourado);
+    background: #fff8e8;
+    color: #74551a;
+}
+
+/* INDICADORES E RESUMOS */
+
+.resumo,
+.indicadores,
+.cards,
+.cards-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.resumo > *,
+.indicadores > *,
+.cards > *,
+.cards-resumo > * {
+    min-width: 0;
+    padding: 21px;
+    border: 1px solid var(--borda);
+    border-top: 4px solid var(--verde-600);
+    border-radius: 14px;
+    background: var(--branco);
+    box-shadow: var(--sombra);
+}
+
+.resumo h3,
+.indicadores h3,
+.cards h3,
+.cards-resumo h3 {
+    margin: 0 0 8px;
+    color: var(--texto-suave);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.resumo strong,
+.indicadores strong,
+.cards strong,
+.cards-resumo strong {
+    color: var(--verde-900);
+    font-size: clamp(21px, 3vw, 29px);
+    overflow-wrap: anywhere;
+}
+
+/* DETALHES E UTILITÁRIOS */
 
 .calculo input {
     width: 100%;
 }
 
-@media (max-width: 768px) {
-    main {
-        width: 95%;
-        margin: 20px auto;
-    }
+hr {
+    height: 1px;
+    margin: 25px 0;
+    border: 0;
+    background: var(--borda);
+}
 
-    .topo {
+code {
+    padding: 3px 6px;
+    border-radius: 5px;
+    background: var(--verde-100);
+    color: var(--verde-900);
+}
+
+footer {
+    margin-top: auto;
+    padding: 23px 4%;
+    border-top: 1px solid var(--borda);
+    background: #eaf0e9;
+    color: var(--texto-suave);
+    text-align: center;
+    font-size: 13px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ACESSIBILIDADE */
+
+:focus-visible {
+    outline: 3px solid var(--dourado);
+    outline-offset: 3px;
+}
+
+::selection {
+    background: var(--verde-100);
+    color: var(--verde-900);
+}
+
+/* CELULAR E TABLET */
+
+@media (max-width: 768px) {
+    .cabecalho-conteudo {
+        width: 92%;
+        padding: 20px 0;
         align-items: flex-start;
         flex-direction: column;
-        gap: 12px;
+        gap: 17px;
+    }
+
+    .usuario-logado {
+        justify-content: flex-start;
+    }
+
+    .container {
+        width: 92%;
+        margin: 23px auto;
+    }
+
+    .formulario,
+    .calculo,
+    .card,
+    .cartao,
+    .painel,
+    .login-box,
+    .cadastro-box,
+    .secao {
+        padding: 19px;
     }
 
     table {
@@ -32,8 +459,560 @@ td small {
         white-space: nowrap;
     }
 
-    .formulario,
-    .calculo {
-        padding: 20px;
+    .resumo,
+    .indicadores,
+    .cards,
+    .cards-resumo {
+        grid-template-columns: 1fr;
+    }
+
+    button,
+    input[type="submit"],
+    .botao {
+        max-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
+
+/* LOGIN E CADASTRO */
+
+.login-container {
+    width: 100%;
+    max-width: 490px;
+    margin: 20px auto;
+}
+
+.login-card {
+    padding: clamp(25px, 5vw, 42px);
+    background: #fff;
+    border: 1px solid #e1e9e1;
+    border-radius: 22px;
+    box-shadow: 0 18px 55px rgba(18, 55, 42, 0.10);
+}
+
+.login-marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    color: #216344;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.login-icone {
+    display: grid;
+    width: 49px;
+    height: 49px;
+    place-items: center;
+    border-radius: 14px;
+    background: #e8f3eb;
+    font-size: 27px;
+}
+
+.login-card .logo {
+    display: block;
+    width: 90px;
+    height: auto;
+    max-height: 90px;
+    object-fit: contain;
+    margin: 0 auto 18px;
+}
+
+.login-card h2 {
+    margin: 0 0 10px;
+    text-align: center;
+    font-size: 28px;
+}
+
+.login-descricao {
+    margin: 0 0 28px;
+    color: #718077;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-card .campo {
+    margin-bottom: 7px;
+}
+
+.login-card .campo label {
+    margin-bottom: 8px;
+}
+
+.login-card .campo input {
+    min-height: 49px;
+    background: #f9fbf8;
+}
+
+.login-botao {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.cadastro-link {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.cadastro-link p {
+    margin: 0 0 5px;
+    color: #718077;
+    font-size: 14px;
+}
+
+.cadastro-link a {
+    font-size: 14px;
+}
+
+.login-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 27px;
+    padding-top: 19px;
+    border-top: 1px solid #e1e9e1;
+}
+
+.login-info p {
+    margin: 0;
+    color: #718077;
+    font-size: 12px;
+    text-align: center;
+}
+
+@media (max-width: 520px) {
+    .login-container {
+        margin: 5px auto;
+    }
+
+    .login-card h2 {
+        font-size: 24px;
+    }
+}
+
+/* =====================================
+   PAINEL PRINCIPAL - GESTÃO AGRO
+   ===================================== */
+
+.painel-boas-vindas {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 18px;
+    background: linear-gradient(120deg, #12372a, #216344);
+    color: white;
+    box-shadow: 0 12px 28px rgba(18, 55, 42, 0.13);
+}
+
+.painel-boas-vindas h2 {
+    margin: 8px 0;
+    color: white;
+    font-size: clamp(23px, 3vw, 31px);
+}
+
+.painel-boas-vindas p {
+    margin: 0;
+    color: #d7e7dc;
+}
+
+.painel-boas-vindas .painel-etiqueta {
+    color: #f0d18a;
+}
+
+.painel-etiqueta {
+    display: inline-block;
+    color: #568065;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.indicadores-agro {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.indicador-agro {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid #e1e9e1;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(18, 55, 42, 0.05);
+}
+
+.indicador-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.indicador-icone {
+    display: grid;
+    width: 43px;
+    height: 43px;
+    place-items: center;
+    border-radius: 12px;
+    background: #e8f3eb;
+    font-size: 21px;
+}
+
+.indicador-legenda {
+    color: #829087;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.indicador-titulo {
+    margin: 19px 0 5px;
+    color: #718077;
+    font-size: 13px;
+}
+
+.indicador-agro > strong {
+    display: block;
+    color: #12372a;
+    font-size: clamp(23px, 2.5vw, 30px);
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.unidade-agro {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.indicador-agro > small {
+    display: block;
+    margin-top: 9px;
+    color: #829087;
+    font-size: 11px;
+}
+
+.secao-agro {
+    margin-bottom: 28px;
+    padding: 26px;
+    border: 1px solid #e1e9e1;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(18, 55, 42, 0.05);
+}
+
+.secao-agro-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.secao-agro-topo h2 {
+    margin: 6px 0;
+}
+
+.secao-agro-topo p {
+    margin: 0;
+    color: #718077;
+    font-size: 13px;
+}
+
+.tabela-agro-wrapper {
+    width: 100%;
+}
+
+.tabela-agro {
+    margin-bottom: 0;
+    box-shadow: none;
+    border-color: #e6ece6;
+}
+
+.tabela-agro thead th {
+    padding: 14px;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+
+.tabela-agro tbody td {
+    padding: 15px 14px;
+    font-size: 13px;
+}
+
+.id-agro {
+    color: #829087;
+    font-weight: 700;
+}
+
+.nome-insumo {
+    color: #244b35;
+}
+
+.preco-agro {
+    color: #216344;
+    white-space: nowrap;
+}
+
+.unidade-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 7px;
+    background: #e8f3eb;
+    color: #216344;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.texto-secundario {
+    color: #929c95;
+}
+
+.acoes-agro {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.acoes-agro form {
+    display: inline;
+    margin: 0;
+}
+
+.acao-editar,
+.acao-excluir {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.acao-editar {
+    background: #e8f3eb;
+    color: #216344;
+}
+
+.acao-editar:hover {
+    background: #d4e9d9;
+    color: #12372a;
+}
+
+.acao-excluir {
+    border: 1px solid #f1d8d6;
+    background: #fff3f2;
+    color: #b93838;
+}
+
+.acao-excluir:hover {
+    background: #b93838;
+    color: #fff;
+}
+
+.estado-vazio-agro {
+    padding: 35px 15px;
+    text-align: center;
+}
+
+.vazio-icone {
+    display: grid;
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 16px;
+    place-items: center;
+    border-radius: 20px;
+    background: #e8f3eb;
+    font-size: 30px;
+}
+
+.estado-vazio-agro h3 {
+    margin: 0 0 8px;
+}
+
+.estado-vazio-agro p {
+    max-width: 440px;
+    margin: 0 auto 20px;
+    color: #718077;
+    font-size: 13px;
+}
+
+.calculadora-agro {
+    border-top: 4px solid #d7ad54;
+}
+
+.calculadora-icone {
+    display: grid;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 14px;
+    background: #fff6df;
+    font-size: 24px;
+}
+
+.resumo-custos-agro {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.resumo-custos-agro > div {
+    padding: 17px;
+    border: 1px solid #e1e9e1;
+    border-radius: 12px;
+    background: #f8faf7;
+}
+
+.resumo-custos-agro span,
+.resultado-detalhes span {
+    display: block;
+    margin-bottom: 7px;
+    color: #718077;
+    font-size: 12px;
+}
+
+.resumo-custos-agro strong {
+    color: #12372a;
+    font-size: 20px;
+    overflow-wrap: anywhere;
+}
+
+.form-calculo-agro {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px 18px;
+    align-items: end;
+}
+
+.campo-agro {
+    min-width: 0;
+}
+
+.campo-agro label {
+    font-size: 13px;
+}
+
+.campo-botao-agro {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+}
+
+.campo-botao-agro button {
+    width: 100%;
+    min-height: 48px;
+}
+
+.resultado-agro {
+    margin-top: 25px;
+    padding: 25px;
+    border: 1px solid #d7e8da;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f1f8f1, #fff);
+}
+
+.resultado-agro h3 {
+    margin: 8px 0;
+}
+
+.resultado-valor {
+    margin: 10px 0 22px;
+    color: #216344;
+    font-size: clamp(32px, 5vw, 43px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    overflow-wrap: anywhere;
+}
+
+.resultado-valor span {
+    color: #718077;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.resultado-detalhes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    padding-top: 18px;
+    border-top: 1px solid #d7e8da;
+}
+
+.resultado-detalhes strong {
+    color: #12372a;
+}
+
+/* RESPONSIVIDADE DO PAINEL */
+
+@media (max-width: 900px) {
+    .indicadores-agro {
+        grid-template-columns: 1fr;
+    }
+
+    .indicador-agro {
+        padding: 19px;
+    }
+
+    .tabela-agro-wrapper {
+        overflow-x: auto;
+    }
+
+    .tabela-agro {
+        min-width: 850px;
+    }
+}
+
+@media (max-width: 600px) {
+    .painel-boas-vindas {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 23px;
+    }
+
+    .secao-agro {
+        padding: 19px;
+    }
+
+    .secao-agro-topo {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .resumo-custos-agro,
+    .form-calculo-agro,
+    .resultado-detalhes {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-botao-agro {
+        grid-column: auto;
+    }
+
+    .calculadora-icone {
+        display: none;
     }
 }

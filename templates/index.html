@@ -1,160 +1,233 @@
 
 {% extends "base.html" %}
 
-{% block title %}Insumos{% endblock %}
+{% block title %}Painel | Gestão de Custos da Engorda{% endblock %}
 
 {% block content %}
 
-<div class="topo">
-    <h2>Cadastro de Insumos</h2>
+<section class="painel-boas-vindas">
+    <div>
+        <span class="painel-etiqueta">PAINEL DE CONTROLE</span>
+        <h2>Visão geral da sua engorda</h2>
+        <p>Acompanhe seus insumos, custos e resultados em um só lugar.</p>
+    </div>
 
     <a href="{{ url_for('cadastrar') }}" class="botao">
-        + Cadastrar Insumo
+        + Novo insumo
     </a>
-</div>
+</section>
 
-{% if insumos %}
+<section class="indicadores-agro">
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Quantidade</th>
-            <th>Unidade</th>
-            <th>Peso por saco</th>
-            <th>Preço total</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+    <article class="indicador-agro">
+        <div class="indicador-topo">
+            <span class="indicador-icone">💰</span>
+            <span class="indicador-legenda">INVESTIMENTO</span>
+        </div>
+        <p class="indicador-titulo">Custo total dos insumos</p>
+        <strong>R$ {{ "%.2f"|format(custo_total) }}</strong>
+        <small>Soma dos custos cadastrados</small>
+    </article>
 
-    <tbody>
-        {% for insumo in insumos %}
-        <tr>
-            <td>{{ insumo.id }}</td>
-            <td>{{ insumo.nome }}</td>
-            <td>{{ "%.2f"|format(insumo.quantidade) }}</td>
-            <td>{{ insumo.unidade }}</td>
+    <article class="indicador-agro">
+        <div class="indicador-topo">
+            <span class="indicador-icone">🌾</span>
+            <span class="indicador-legenda">ESTOQUE</span>
+        </div>
+        <p class="indicador-titulo">Insumos cadastrados</p>
+        <strong>{{ insumos|length }}</strong>
+        <small>Itens registrados no sistema</small>
+    </article>
 
-            <td>
-                {% if insumo.unidade == "Saco" and insumo.peso_por_saco %}
-                    {{ "%.0f"|format(insumo.peso_por_saco) }} kg
-                    <br>
-                    <small>
-                        Total: {{ "%.2f"|format(insumo.quantidade * insumo.peso_por_saco) }} kg
-                    </small>
-                {% else %}
-                    —
-                {% endif %}
-            </td>
+    <article class="indicador-agro">
+        <div class="indicador-topo">
+            <span class="indicador-icone">⚖️</span>
+            <span class="indicador-legenda">QUANTIDADE</span>
+        </div>
+        <p class="indicador-titulo">Peso dos insumos em sacos</p>
+        <strong>{{ "%.2f"|format(peso_total_sacos) }} <span class="unidade-agro">kg</span></strong>
+        <small>Peso calculado dos insumos vendidos em sacos</small>
+    </article>
 
-            <td>R$ {{ "%.2f"|format(insumo.preco_total) }}</td>
+</section>
 
-            <td class="acoes">
-                <a href="{{ url_for('editar', id=insumo.id) }}" class="editar">
-                    Editar
-                </a>
+<section class="secao-agro">
+    <div class="secao-agro-topo">
+        <div>
+            <span class="painel-etiqueta">GESTÃO DE ESTOQUE</span>
+            <h2>Seus insumos</h2>
+            <p>Consulte e gerencie os insumos cadastrados.</p>
+        </div>
 
-                <form
-                    action="{{ url_for('excluir', id=insumo.id) }}"
-                    method="POST"
-                    style="display: inline;"
-                >
-                    <button
-                        type="submit"
-                        class="excluir"
-                        onclick="return confirm('Deseja realmente excluir este insumo?')"
-                    >
-                        Excluir
-                    </button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <a href="{{ url_for('cadastrar') }}" class="botao">
+            + Cadastrar
+        </a>
+    </div>
 
-{% else %}
+    {% if insumos %}
+    <div class="tabela-agro-wrapper">
+        <table class="tabela-agro">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Insumo</th>
+                    <th>Quantidade</th>
+                    <th>Unidade</th>
+                    <th>Peso por saco</th>
+                    <th>Preço total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
 
-<div class="vazio">
-    <p>Nenhum insumo cadastrado.</p>
+            <tbody>
+                {% for insumo in insumos %}
+                <tr>
+                    <td><span class="id-agro">#{{ insumo.id }}</span></td>
 
-    <a href="{{ url_for('cadastrar') }}" class="botao">
-        Cadastrar primeiro insumo
-    </a>
-</div>
+                    <td>
+                        <strong class="nome-insumo">{{ insumo.nome }}</strong>
+                    </td>
 
-{% endif %}
+                    <td>{{ "%.2f"|format(insumo.quantidade) }}</td>
 
-<div class="calculo">
-    <h2>Cálculo de Custo por Kg</h2>
+                    <td>
+                        <span class="unidade-badge">{{ insumo.unidade }}</span>
+                    </td>
 
-    <p>
-        O custo total é calculado pela soma dos preços dos insumos cadastrados.
-    </p>
+                    <td>
+                        {% if insumo.unidade == "Saco" and insumo.peso_por_saco %}
+                            {{ "%.2f"|format(insumo.peso_por_saco) }} kg
+                            <br>
+                            <small>
+                                Total:
+                                {{ "%.2f"|format(insumo.quantidade * insumo.peso_por_saco) }} kg
+                            </small>
+                        {% else %}
+                            <span class="texto-secundario">Não se aplica</span>
+                        {% endif %}
+                    </td>
 
-    <p>
-        <strong>Custo total dos insumos:</strong>
-        R$ {{ "%.2f"|format(custo_total) }}
-    </p>
+                    <td>
+                        <strong class="preco-agro">
+                            R$ {{ "%.2f"|format(insumo.preco_total) }}
+                        </strong>
+                    </td>
 
-    <p>
-        <strong>Peso total dos insumos em sacos:</strong>
-        {{ "%.2f"|format(peso_total_sacos) }} kg
-    </p>
+                    <td>
+                        <div class="acoes-agro">
+                            <a
+                                href="{{ url_for('editar', id=insumo.id) }}"
+                                class="acao-editar"
+                            >Editar</a>
 
-    <form action="{{ url_for('calcular') }}" method="POST">
-        <label for="peso_inicial">Peso inicial dos animais (kg)</label>
+                            <form
+                                action="{{ url_for('excluir', id=insumo.id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Deseja realmente excluir este insumo?')"
+                            >
+                                <button type="submit" class="acao-excluir">
+                                    Excluir
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-        <input
-            type="number"
-            id="peso_inicial"
-            name="peso_inicial"
-            step="0.01"
-            min="0.01"
-            placeholder="Ex.: 300"
-            value="{{ peso_inicial if peso_inicial is defined else '' }}"
-            required
-        >
+    {% else %}
+    <div class="estado-vazio-agro">
+        <div class="vazio-icone">🌱</div>
+        <h3>Seu estoque está começando</h3>
+        <p>Cadastre o primeiro insumo para começar a acompanhar os custos da engorda.</p>
+        <a href="{{ url_for('cadastrar') }}" class="botao">
+            Cadastrar primeiro insumo
+        </a>
+    </div>
+    {% endif %}
+</section>
 
-        <label for="peso_final">Peso final dos animais (kg)</label>
+<section class="secao-agro calculadora-agro">
+    <div class="secao-agro-topo">
+        <div>
+            <span class="painel-etiqueta">ANÁLISE DE CUSTOS</span>
+            <h2>Custo por kg produzido</h2>
+            <p>Informe os pesos dos animais para calcular o ganho de peso e o custo por quilograma produzido.</p>
+        </div>
+        <span class="calculadora-icone">📊</span>
+    </div>
 
-        <input
-            type="number"
-            id="peso_final"
-            name="peso_final"
-            step="0.01"
-            min="0.01"
-            placeholder="Ex.: 450"
-            value="{{ peso_final if peso_final is defined else '' }}"
-            required
-        >
+    <div class="resumo-custos-agro">
+        <div>
+            <span>Custo total dos insumos</span>
+            <strong>R$ {{ "%.2f"|format(custo_total) }}</strong>
+        </div>
+        <div>
+            <span>Peso dos insumos em sacos</span>
+            <strong>{{ "%.2f"|format(peso_total_sacos) }} kg</strong>
+        </div>
+    </div>
 
-        <button type="submit" class="botao">
-            Calcular custo por kg
-        </button>
+    <form action="{{ url_for('calcular') }}" method="POST" class="form-calculo-agro">
+        <div class="campo-agro">
+            <label for="peso_inicial">Peso inicial dos animais (kg)</label>
+            <input
+                type="number"
+                id="peso_inicial"
+                name="peso_inicial"
+                step="0.01"
+                min="0.01"
+                placeholder="Ex.: 300"
+                value="{{ peso_inicial if peso_inicial is defined else '' }}"
+                required
+            >
+        </div>
+
+        <div class="campo-agro">
+            <label for="peso_final">Peso final dos animais (kg)</label>
+            <input
+                type="number"
+                id="peso_final"
+                name="peso_final"
+                step="0.01"
+                min="0.01"
+                placeholder="Ex.: 450"
+                value="{{ peso_final if peso_final is defined else '' }}"
+                required
+            >
+        </div>
+
+        <div class="campo-agro campo-botao-agro">
+            <button type="submit" class="botao">
+                Calcular resultado →
+            </button>
+        </div>
     </form>
 
     {% if custo_por_kg is defined %}
-    <div class="resultado">
-        <h3>Resultado</h3>
+    <div class="resultado-agro">
+        <span class="painel-etiqueta">RESULTADO DO CÁLCULO</span>
+        <h3>Custo por quilograma produzido</h3>
 
-        <p>
-            Custo total dos insumos:
-            <strong>R$ {{ "%.2f"|format(custo_total) }}</strong>
-        </p>
+        <div class="resultado-valor">
+            R$ {{ "%.2f"|format(custo_por_kg) }}
+            <span>/ kg</span>
+        </div>
 
-        <p>
-            Ganho de peso:
-            <strong>{{ "%.2f"|format(peso_final - peso_inicial) }} kg</strong>
-        </p>
-
-        <p>
-            Custo por kg produzido:
-            <strong>R$ {{ "%.2f"|format(custo_por_kg) }}</strong>
-        </p>
+        <div class="resultado-detalhes">
+            <div>
+                <span>Custo total considerado</span>
+                <strong>R$ {{ "%.2f"|format(custo_total) }}</strong>
+            </div>
+            <div>
+                <span>Ganho de peso informado</span>
+                <strong>{{ "%.2f"|format(peso_final - peso_inicial) }} kg</strong>
+            </div>
+        </div>
     </div>
     {% endif %}
-</div>
+</section>
 
 {% endblock %}

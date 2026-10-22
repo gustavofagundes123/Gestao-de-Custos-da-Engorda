@@ -1,104 +1,61 @@
+
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#12372a">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>{% block title %}Gestão de Custos da Engorda{% endblock %}</title>
 
-    <title>
-        {% block title %}Gestão de Custos{% endblock %}
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
-
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-
 <header class="cabecalho">
-
     <div class="cabecalho-conteudo">
-
-        <div>
-
-            <h1>
-                🐂 Gestão de Custos da Engorda
-            </h1>
-
-            <p>
-                Controle e acompanhamento dos custos da sua engorda
-            </p>
-
-        </div>
-
+        <a href="{{ url_for('index') if session.get('usuario_id') else url_for('login') }}"
+           style="color: inherit; text-decoration: none;">
+            <div style="display:flex; align-items:center; gap:14px;">
+                <div style="font-size:35px;" aria-hidden="true">🐂</div>
+                <div>
+                    <h1>Gestão de Custos</h1>
+                    <p>ENGORDA • CONTROLE • RENTABILIDADE</p>
+                </div>
+            </div>
+        </a>
 
         {% if session.get("usuario_id") %}
-
         <div class="usuario-logado">
-
             <span>
-                👤 {{ session.get("usuario_nome") }}
+                Olá, {{ session.get("usuario_nome", "Produtor") }}
             </span>
-
-            <a
-                href="{{ url_for('logout') }}"
-                class="botao-sair"
-            >
-                Sair
+            <a href="{{ url_for('logout') }}" class="botao-sair">
+                Sair da conta
             </a>
-
         </div>
-
         {% endif %}
-
     </div>
-
 </header>
 
-
 <main class="container">
-
     {% with mensagens = get_flashed_messages(with_categories=true) %}
-
         {% if mensagens %}
-
             {% for categoria, mensagem in mensagens %}
-
-                <div class="mensagem {{ categoria }}">
+                <div class="mensagem {{ categoria }}" role="status">
                     {{ mensagem }}
                 </div>
-
             {% endfor %}
-
         {% endif %}
-
     {% endwith %}
 
-
-    {% block content %}
-    {% endblock %}
-
+    {% block content %}{% endblock %}
 </main>
 
-
 <footer>
-
-    <p>
-        Gestão de Custos da Engorda
-    </p>
-
+    <p><strong>Gestão de Custos da Engorda</strong></p>
+    <p>Mais controle para decisões melhores no campo.</p>
 </footer>
-
-
 </body>
-
 </html>

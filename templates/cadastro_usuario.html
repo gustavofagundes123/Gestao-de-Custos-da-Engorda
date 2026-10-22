@@ -1,92 +1,66 @@
+
 {% extends "base.html" %}
 
-{% block title %}Criar Conta - Gestão de Custos{% endblock %}
+{% block title %}Criar Conta | Gestão de Custos da Engorda{% endblock %}
 
 {% block content %}
 
 <div class="login-container">
-
     <div class="login-card">
 
-        <div class="login-icon">
-            🐂
+        <div class="login-marca">
+            <div class="login-icone">🐂</div>
+            <span>GESTÃO AGROPECUÁRIA</span>
         </div>
 
-        <h2>
-            Criar conta
-        </h2>
+        <h2>Crie sua conta</h2>
 
         <p class="login-descricao">
-            Cadastre seus dados para acessar
-            a Gestão de Custos da Engorda.
+            Comece a organizar os custos da sua engorda
+            e tenha mais controle sobre sua produção.
         </p>
 
-
-        <form
-            method="POST"
-            action="{{ url_for('cadastro_usuario') }}"
-        >
+        <form method="POST" action="{{ url_for('cadastro_usuario') }}">
 
             <div class="campo">
-
-                <label for="nome">
-                    Nome
-                </label>
-
+                <label for="nome">Nome completo</label>
                 <input
                     type="text"
                     id="nome"
                     name="nome"
                     placeholder="Digite seu nome"
+                    autocomplete="name"
                     required
                 >
-
             </div>
 
-
             <div class="campo">
-
-                <label for="email">
-                    E-mail
-                </label>
-
+                <label for="email">E-mail</label>
                 <input
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="Digite seu e-mail"
+                    placeholder="voce@exemplo.com"
                     autocomplete="email"
                     required
                 >
-
             </div>
 
-
             <div class="campo">
-
-                <label for="senha">
-                    Senha
-                </label>
-
+                <label for="senha">Senha</label>
                 <input
                     type="password"
                     id="senha"
                     name="senha"
-                    placeholder="Digite sua senha"
+                    placeholder="Crie uma senha com pelo menos 6 caracteres"
                     minlength="6"
                     autocomplete="new-password"
                     required
                 >
-
             </div>
 
-
             <div class="campo">
-
-                <label for="confirmar_senha">
-                    Confirmar senha
-                </label>
-
+                <label for="confirmar_senha">Confirmar senha</label>
                 <input
                     type="password"
                     id="confirmar_senha"
@@ -96,43 +70,27 @@
                     autocomplete="new-password"
                     required
                 >
-
             </div>
 
-
-            <button
-                type="submit"
-                class="botao login-botao"
-            >
-                Criar conta
+            <button type="submit" class="botao login-botao">
+                Criar minha conta →
             </button>
 
         </form>
 
-
         <div class="cadastro-link">
-
-            <p>
-                Já possui uma conta?
-            </p>
-
+            <p>Já possui uma conta?</p>
             <a href="{{ url_for('login') }}">
                 Voltar para o login
             </a>
-
         </div>
 
-
         <div class="login-info">
-
-            <p>
-                Sistema de Gestão de Custos da Engorda
-            </p>
-
+            <span>🌱</span>
+            <p>Mais organização e controle para o seu negócio rural.</p>
         </div>
 
     </div>
-
 </div>
 
 {% endblock %}
