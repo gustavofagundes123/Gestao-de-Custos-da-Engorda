@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block title %}Cadastrar Insumo{% endblock %}
@@ -5,15 +6,10 @@
 {% block content %}
 
 <div class="formulario">
-
-    <h2>Adicionar Insumo</h2>
+    <h2>Cadastrar Insumo</h2>
 
     <form method="POST">
-
-        <label for="nome">
-            Nome do insumo *
-        </label>
-
+        <label for="nome">Nome do insumo *</label>
         <input
             type="text"
             id="nome"
@@ -22,132 +18,83 @@
             required
         >
 
-        <label for="quantidade">
-            Quantidade *
-        </label>
-
+        <label for="quantidade">Quantidade *</label>
         <input
             type="number"
             id="quantidade"
             name="quantidade"
             step="0.01"
             min="0.01"
-            placeholder="Ex.: 50"
+            placeholder="Ex.: 4"
             required
         >
 
-        <label for="unidade">
-            Unidade de medida *
-        </label>
-
+        <label for="unidade">Unidade de medida *</label>
         <select id="unidade" name="unidade" required>
-
-            <option value="">
-                Selecione uma unidade
-            </option>
-
-            <option value="kg">
-                Quilograma (kg)
-            </option>
-
-            <option value="g">
-                Grama (g)
-            </option>
-
-            <option value="L">
-                Litro (L)
-            </option>
-
-            <option value="mL">
-                Mililitro (mL)
-            </option>
-
-            <option value="un">
-                Unidade (un)
-            </option>
-
+            <option value="">Selecione uma unidade</option>
+            <option value="kg">Quilograma (kg)</option>
+            <option value="g">Grama (g)</option>
+            <option value="L">Litro (L)</option>
+            <option value="mL">Mililitro (mL)</option>
+            <option value="un">Unidade (un)</option>
+            <option value="Saco">Saco</option>
         </select>
 
+        <div id="campo-peso-saco" style="display: none;">
+            <label for="peso_por_saco">Peso de cada saco (kg) *</label>
+            <select id="peso_por_saco" name="peso_por_saco" disabled>
+                <option value="">Selecione o peso do saco</option>
+                <option value="15">15 kg</option>
+                <option value="20">20 kg</option>
+                <option value="25">25 kg</option>
+                <option value="30">30 kg</option>
+                <option value="35">35 kg</option>
+                <option value="40">40 kg</option>
+            </select>
+        </div>
 
-        <!-- O texto muda automaticamente conforme a unidade -->
-
-        <label for="custo_unitario" id="label_custo">
-            Custo por unidade (R$) *
-        </label>
-
+        <label for="preco_total">Preço total da quantidade (R$) *</label>
         <input
             type="number"
-            id="custo_unitario"
-            name="custo_unitario"
+            id="preco_total"
+            name="preco_total"
             step="0.01"
-            min="0"
-            placeholder="Ex.: 5.50"
+            min="0.01"
+            placeholder="Ex.: 320.00"
             required
         >
 
-
         <div class="botoes">
-
             <button type="submit" class="botao">
                 Cadastrar
             </button>
 
-            <a
-                href="{{ url_for('index') }}"
-                class="cancelar">
+            <a href="{{ url_for('index') }}" class="cancelar">
                 Cancelar
             </a>
-
         </div>
-
     </form>
-
 </div>
-
 
 <script>
     const unidade = document.getElementById("unidade");
-    const labelCusto = document.getElementById("label_custo");
-    const custoInput = document.getElementById("custo_unitario");
+    const campoPesoSaco = document.getElementById("campo-peso-saco");
+    const pesoPorSaco = document.getElementById("peso_por_saco");
 
-    function atualizarCusto() {
+    function atualizarCampoPeso() {
+        const selecionouSaco = unidade.value === "Saco";
 
-        const valor = unidade.value;
+        campoPesoSaco.style.display = selecionouSaco ? "block" : "none";
+        pesoPorSaco.disabled = !selecionouSaco;
+        pesoPorSaco.required = selecionouSaco;
 
-        if (valor === "kg") {
-            labelCusto.textContent = "Custo por kg (R$) *";
-            custoInput.placeholder = "Ex.: 5.50";
-        }
-
-        else if (valor === "g") {
-            labelCusto.textContent = "Custo por grama (R$) *";
-            custoInput.placeholder = "Ex.: 0.05";
-        }
-
-        else if (valor === "L") {
-            labelCusto.textContent = "Custo por litro (R$) *";
-            custoInput.placeholder = "Ex.: 6.50";
-        }
-
-        else if (valor === "mL") {
-            labelCusto.textContent = "Custo por mililitro (R$) *";
-            custoInput.placeholder = "Ex.: 0.01";
-        }
-
-        else if (valor === "un") {
-            labelCusto.textContent = "Custo por unidade (R$) *";
-            custoInput.placeholder = "Ex.: 5.50";
-        }
-
-        else {
-            labelCusto.textContent = "Custo por unidade (R$) *";
-            custoInput.placeholder = "Ex.: 5.50";
+        if (!selecionouSaco) {
+            pesoPorSaco.value = "";
         }
     }
 
-    unidade.addEventListener("change", atualizarCusto);
-
-    atualizarCusto();
+    unidade.addEventListener("change", atualizarCampoPeso);
+    atualizarCampoPeso();
 </script>
 
 {% endblock %}

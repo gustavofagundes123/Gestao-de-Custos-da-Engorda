@@ -1,287 +1,160 @@
+
 {% extends "base.html" %}
 
-{% block title %}Gestão de Custos{% endblock %}
+{% block title %}Insumos{% endblock %}
 
 {% block content %}
 
 <div class="topo">
+    <h2>Cadastro de Insumos</h2>
 
-    <div>
-        <h2>Cadastro de Insumos</h2>
-
-        <p>
-            Gerencie os insumos e acompanhe os custos da engorda.
-        </p>
-    </div>
-
-    <a
-        href="{{ url_for('cadastrar') }}"
-        class="botao">
+    <a href="{{ url_for('cadastrar') }}" class="botao">
         + Cadastrar Insumo
     </a>
-
 </div>
-
 
 {% if insumos %}
 
-<div class="tabela-container">
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Quantidade</th>
+            <th>Unidade</th>
+            <th>Peso por saco</th>
+            <th>Preço total</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
 
-    <table>
+    <tbody>
+        {% for insumo in insumos %}
+        <tr>
+            <td>{{ insumo.id }}</td>
+            <td>{{ insumo.nome }}</td>
+            <td>{{ "%.2f"|format(insumo.quantidade) }}</td>
+            <td>{{ insumo.unidade }}</td>
 
-        <thead>
+            <td>
+                {% if insumo.unidade == "Saco" and insumo.peso_por_saco %}
+                    {{ "%.0f"|format(insumo.peso_por_saco) }} kg
+                    <br>
+                    <small>
+                        Total: {{ "%.2f"|format(insumo.quantidade * insumo.peso_por_saco) }} kg
+                    </small>
+                {% else %}
+                    —
+                {% endif %}
+            </td>
 
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Quantidade</th>
-                <th>Unidade</th>
-                <th>Custo unitário</th>
-                <th>Custo total</th>
-                <th>Ações</th>
-            </tr>
+            <td>R$ {{ "%.2f"|format(insumo.preco_total) }}</td>
 
-        </thead>
+            <td class="acoes">
+                <a href="{{ url_for('editar', id=insumo.id) }}" class="editar">
+                    Editar
+                </a>
 
-        <tbody>
-
-            {% for insumo in insumos %}
-
-            <tr>
-
-                <td>
-                    {{ insumo.id }}
-                </td>
-
-                <td>
-                    {{ insumo.nome }}
-                </td>
-
-                <td>
-                    {{ "%.2f"|format(insumo.quantidade) }}
-                </td>
-
-                <td>
-                    {{ insumo.unidade }}
-                </td>
-
-                <td>
-
-                    {% if insumo.unidade == "kg" %}
-                        R$ {{ "%.2f"|format(insumo.custo_unitario) }}/kg
-
-                    {% elif insumo.unidade == "g" %}
-                        R$ {{ "%.2f"|format(insumo.custo_unitario) }}/g
-
-                    {% elif insumo.unidade == "L" %}
-                        R$ {{ "%.2f"|format(insumo.custo_unitario) }}/L
-
-                    {% elif insumo.unidade == "mL" %}
-                        R$ {{ "%.2f"|format(insumo.custo_unitario) }}/mL
-
-                    {% elif insumo.unidade == "un" %}
-                        R$ {{ "%.2f"|format(insumo.custo_unitario) }}/un
-
-                    {% else %}
-                        R$ {{ "%.2f"|format(insumo.custo_unitario) }}/{{ insumo.unidade }}
-
-                    {% endif %}
-
-                </td>
-
-                <td>
-                    <strong>
-                        R$ {{ "%.2f"|format(insumo.custo_total) }}
-                    </strong>
-                </td>
-
-                <td class="acoes">
-
-                    <a
-                        href="{{ url_for('editar', id=insumo.id) }}"
-                        class="editar">
-                        Editar
-                    </a>
-
-                    <form
-                        action="{{ url_for('excluir', id=insumo.id) }}"
-                        method="POST"
-                        style="display:inline;">
-
-                        <button
-                            type="submit"
-                            class="excluir"
-                            onclick="return confirm('Deseja realmente excluir este insumo?')">
-
-                            Excluir
-
-                        </button>
-
-                    </form>
-
-                </td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
-
-</div>
-
-
-<div class="resultado">
-
-    <h3>💰 Custo total da engorda</h3>
-
-    <strong class="valor-resultado">
-        R$ {{ "%.2f"|format(custo_total) }}
-    </strong>
-
-    <p>
-        Valor calculado automaticamente com base nos insumos cadastrados.
-    </p>
-
-</div>
-
+                <form
+                    action="{{ url_for('excluir', id=insumo.id) }}"
+                    method="POST"
+                    style="display: inline;"
+                >
+                    <button
+                        type="submit"
+                        class="excluir"
+                        onclick="return confirm('Deseja realmente excluir este insumo?')"
+                    >
+                        Excluir
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% else %}
 
 <div class="vazio">
+    <p>Nenhum insumo cadastrado.</p>
 
-    <p>
-        Nenhum insumo cadastrado.
-    </p>
-
-    <a
-        href="{{ url_for('cadastrar') }}"
-        class="botao">
+    <a href="{{ url_for('cadastrar') }}" class="botao">
         Cadastrar primeiro insumo
     </a>
-
 </div>
 
 {% endif %}
 
-
-<!-- CÁLCULO DO CUSTO POR KG -->
-
 <div class="calculo">
+    <h2>Cálculo de Custo por Kg</h2>
 
-    <h2>🧮 Custo por Kg Produzido</h2>
-
-    <p class="calculo-descricao">
-        O custo total é obtido automaticamente a partir dos custos cadastrados.
+    <p>
+        O custo total é calculado pela soma dos preços dos insumos cadastrados.
     </p>
 
+    <p>
+        <strong>Custo total dos insumos:</strong>
+        R$ {{ "%.2f"|format(custo_total) }}
+    </p>
 
-    <form
-        action="{{ url_for('calcular') }}"
-        method="POST">
+    <p>
+        <strong>Peso total dos insumos em sacos:</strong>
+        {{ "%.2f"|format(peso_total_sacos) }} kg
+    </p>
 
-        <div class="campo">
+    <form action="{{ url_for('calcular') }}" method="POST">
+        <label for="peso_inicial">Peso inicial dos animais (kg)</label>
 
-            <label>
-                Custo total da engorda
-            </label>
+        <input
+            type="number"
+            id="peso_inicial"
+            name="peso_inicial"
+            step="0.01"
+            min="0.01"
+            placeholder="Ex.: 300"
+            value="{{ peso_inicial if peso_inicial is defined else '' }}"
+            required
+        >
 
-            <input
-                type="text"
-                value="R$ {{ '%.2f'|format(custo_total) }}"
-                readonly
-            >
+        <label for="peso_final">Peso final dos animais (kg)</label>
 
-        </div>
+        <input
+            type="number"
+            id="peso_final"
+            name="peso_final"
+            step="0.01"
+            min="0.01"
+            placeholder="Ex.: 450"
+            value="{{ peso_final if peso_final is defined else '' }}"
+            required
+        >
 
-
-        <div class="campo">
-
-            <label for="peso_inicial">
-                Peso inicial (kg)
-            </label>
-
-            <input
-                type="number"
-                id="peso_inicial"
-                name="peso_inicial"
-                step="0.01"
-                min="0.01"
-                placeholder="Ex.: 300"
-                value="{{ peso_inicial if peso_inicial is defined else '' }}"
-                required
-            >
-
-        </div>
-
-
-        <div class="campo">
-
-            <label for="peso_final">
-                Peso final (kg)
-            </label>
-
-            <input
-                type="number"
-                id="peso_final"
-                name="peso_final"
-                step="0.01"
-                min="0.01"
-                placeholder="Ex.: 450"
-                value="{{ peso_final if peso_final is defined else '' }}"
-                required
-            >
-
-        </div>
-
-
-        <button
-            type="submit"
-            class="botao">
-
+        <button type="submit" class="botao">
             Calcular custo por kg
-
         </button>
-
     </form>
 
-
-    {% if ganho_peso is defined %}
-
-    <div class="resultado">
-
-        <h3>⚖️ Ganho de peso</h3>
-
-        <strong class="valor-resultado">
-            {{ "%.2f"|format(ganho_peso) }} kg
-        </strong>
-
-    </div>
-
-    {% endif %}
-
-
     {% if custo_por_kg is defined %}
-
     <div class="resultado">
-
-        <h3>
-            📊 Resultado
-        </h3>
+        <h3>Resultado</h3>
 
         <p>
-            Custo por quilograma produzido:
+            Custo total dos insumos:
+            <strong>R$ {{ "%.2f"|format(custo_total) }}</strong>
         </p>
 
-        <strong class="valor-resultado">
-            R$ {{ "%.2f"|format(custo_por_kg) }} / kg
-        </strong>
+        <p>
+            Ganho de peso:
+            <strong>{{ "%.2f"|format(peso_final - peso_inicial) }} kg</strong>
+        </p>
 
+        <p>
+            Custo por kg produzido:
+            <strong>R$ {{ "%.2f"|format(custo_por_kg) }}</strong>
+        </p>
     </div>
-
     {% endif %}
-
 </div>
 
 {% endblock %}
